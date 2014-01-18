@@ -1,0 +1,17 @@
+{% include "electoral_data/header.html" %}
+<div class="alert alert-info">
+    <p>Here are the citizen details</p>
+</div>
+<div class="row" class="list-group">
+		{% if citizens_list %}
+		<div class="list-group">
+		    {% for Citizen in citizens_list %}
+		    	<a href="/view/detail/{{ Citizen.id }}" class="list-group-item">{{ Citizen.name | title }}<span class="glyphicon glyphicon-chevron-right pull-right"> </span></a>
+		    {% endfor %}
+		</div>
+		{% else %}
+    	<p>No LS seats are available.</p>
+		{% endif %}
+	</div>
+</div>
+{% include "electoral_data/footer.html" %}

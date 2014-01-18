@@ -1,0 +1,16 @@
+{% include "electoral_data/header.html" %}
+<div class="alert alert-info">
+    <p>Choose the Society below</p>
+</div>
+<div class="row">
+	<div class="list-group">
+		{% if societies_list %}
+		    {% for Society in societies_list %}
+		    	<a href="/view/citizens/{{ Society.society_no }}/" class="list-group-item">{{ Society.address | title}} <span class="glyphicon glyphicon-chevron-right pull-right"> </a>
+		    {% endfor %}
+		{% else %}
+		    <p>No LS seats are available.</p>
+		{% endif %}
+	</div>
+</div>
+{% include "electoral_data/footer.html" %}

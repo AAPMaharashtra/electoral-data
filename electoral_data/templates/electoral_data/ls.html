@@ -1,0 +1,16 @@
+{% include "electoral_data/header.html" %}
+<div class="alert alert-info">
+	<p>To get started, select the Lok Sabha Seat below. </p>
+</div>
+<div class="row">
+	<div class="list-group">
+		{% if ls_seats_list %}
+	    	{% for LokSabhaSeat in ls_seats_list %}
+	        	<a href="/view/assembly/{{ LokSabhaSeat.id }}/" class="list-group-item">{{ LokSabhaSeat.name }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+	    	{% endfor %}
+		{% else %}
+	    	<p>No LS seats are available.</p>
+		{% endif %}
+	</div>
+</div>
+{% include "electoral_data/footer.html" %}

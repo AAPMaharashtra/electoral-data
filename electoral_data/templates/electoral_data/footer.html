@@ -31,6 +31,10 @@
 	      		$(this).addClass('btn-danger');
 	      		$('#interestInput').val('against');
 	      	});
+
+	      	$('.typeCheck').click(function() {
+	      		$(this).siblings().children().trigger('click');
+	      	});
 		});
 	</script>
 </footer>

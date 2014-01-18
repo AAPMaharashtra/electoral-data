@@ -16,6 +16,7 @@ class AssemblyConstituency(models.Model):
 class PollingStation(models.Model):
 	name = models.CharField(max_length=100)
 	constituency = models.ForeignKey(AssemblyConstituency)
+	processed = models.BooleanField(default=False)
 	def __unicode__(self):
 		return self.name
 
@@ -28,6 +29,7 @@ class Society(models.Model):
 	male_count = models.IntegerField(default=0)
 	female_count = models.IntegerField(default=0)
 	total_count = models.IntegerField(default=0)
+	processed = models.BooleanField(default=False)
 	def __unicode__(self):
 		return self.society_no + ', ' + self.address
 
@@ -36,7 +38,7 @@ class Citizen(models.Model):
 	voter_id = models.CharField(max_length=100,default='')
 	name = models.CharField(max_length=100)
 	parent_name = models.CharField(max_length=100)
-	t_flag = models.CharField(max_length=100)
+	house_no = models.CharField(max_length=100,default='')
 	age = models.IntegerField(default=0)
 	SEX_CHOICES = (('male','Male'),('female','Female'))
 	sex = models.CharField(max_length=10,choices=SEX_CHOICES,default='male')
@@ -54,11 +56,8 @@ class Citizen(models.Model):
 	)
 	photo_available = models.CharField(max_length=2,choices=PHOTO_CHOICES,default='n')
 
-	PHOTO_CHOICES = (
-		('y','Yes'),
-		('n','No')
-	)
-	photo_available = models.CharField(max_length=2,choices=PHOTO_CHOICES,default='n')
+	processed = models.BooleanField(default=False)
+
 	def __unicode__(self):
 		return self.name + ', ' + self.address
 

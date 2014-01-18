@@ -12,9 +12,25 @@
 	<![endif]-->
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
-	      $(".clickableRow").click(function() {
-	            window.document.location = $(this).attr("href");
-	      });
+	      	
+	      	$(".interestBtn").click(function() {
+	      		$(this).removeClass('btn-default');
+	            $(this).siblings().each(function(){
+	            	$(this).removeClass('btn-success').removeClass('btn-danger').removeClass('btn-info').addClass('btn-default');
+	            });
+	      	});
+	      	$('#forBtn').click(function() {
+	      		$(this).addClass('btn-success');
+	      		$('#interestInput').val('for');
+	      	});
+	      	$('#neutralBtn').click(function() {
+	      		$(this).addClass('btn-info');
+	      		$('#interestInput').val('neutral');
+	      	});
+	      	$('#againstBtn').click(function() {
+	      		$(this).addClass('btn-danger');
+	      		$('#interestInput').val('against');
+	      	});
 		});
 	</script>
 </footer>

@@ -20,6 +20,25 @@
 				</tbody>
 			</table>
 		</div>
+		<h4> Is this citizen interested in AAP ? </h4>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="btn-group btn-group-justified btn-group-lg">
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="forBtn">For</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="neutralBtn">Neutral</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="againstBtn">Against</a>
+				</div>
+			</div>
+		</div>
+		<form action="/detail/{{Citizen.id}}" method="post" class="form-horizontal" role="form">
+			{% csrf_token %}
+			<input type="hidden" name="interest" value="neutral" id="interestInput">
+			<div class="form-group">
+			    <div class="col-sm-offset-4 col-sm-12">
+			      <input type="submit" class="btn btn-default">
+			    </div>
+			</div>
+		</form>
 	{% endfor %}
 {% else %}
     <p>Error.</p>

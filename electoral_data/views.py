@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen
+from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen,CitizenInterestForm
 
 
 # Create your views here.
@@ -38,6 +38,12 @@ def citizens(request,society_id):
 
 # Show Citizen details
 def detail(request,citizen_id):
+	if request.method == 'POST':
+		form = CitizenInterestForm(request.Post)
+		form.save()
+	else:
+		form = CitizenInterestForm()
+
 	citizen_details = Citizen.objects.filter(id=citizen_id)
-	context = {'citizen_details': citizen_details}
+	context = {'citizen_details': citizen_details,'form': form}
 	return render(request, 'electoral_data/detail.html', context)

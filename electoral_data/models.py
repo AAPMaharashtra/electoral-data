@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 # Create your models here.
 class LokSabhaSeat(models.Model):
@@ -55,11 +56,18 @@ class Citizen(models.Model):
 		('n','No')
 	)
 	photo_available = models.CharField(max_length=2,choices=PHOTO_CHOICES,default='n')
-
 	processed = models.BooleanField(default=False)
+	isMember = models.BooleanField('Member',default=False)
+	isVolunteer = models.BooleanField('Volunteer',default=False)
+	isDonor = models.BooleanField('Donor',default=False)
 
 	def __unicode__(self):
 		return self.name + ', ' + self.address
+
+class CitizenInterestForm(ModelForm):
+	class Meta:
+		model = Citizen
+		fields = ['interest', 'processed','isMember','isVolunteer','isDonor']
 
 
 

@@ -1,17 +1,27 @@
 {% include "electoral_data/header.html" %}
-<div class="alert alert-info">
-    <p>Here are the citizen details</p>
-</div>
-<div class="row" class="list-group">
-		{% if citizen_details %}
-		<div class="list-group">
-		    {% for Citizen in citizen_details %}
-		    	<a href="/view/detail/{{ Citizen.id }}" class="list-group-item">{{ Citizen.name | title }}<span class="glyphicon glyphicon-chevron-right pull-right"> </span></a>
-		    {% endfor %}
+{% if citizen_details %}
+	{% for Citizen in citizen_details %}
+		<h3>{{Citizen.name | title}}</h3>
+		<div class="table-resposive">
+			<table class="table table-bordered">
+				<thead>
+					<th>House no</th>
+					<th>Voter ID</th>
+					<th>Age</th>
+					<th>Gender</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>{{Citizen.house_no}}</td>
+						<td>{{Citizen.voter_id}}</td>
+						<td>{{Citizen.age}}</td>
+						<td>{{Citizen.sex | title}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-		{% else %}
-    	<p>No LS seats are available.</p>
-		{% endif %}
-	</div>
-</div>
+	{% endfor %}
+{% else %}
+    <p>Error.</p>
+{% endif %}
 {% include "electoral_data/footer.html" %}

@@ -34,7 +34,14 @@
 
 	      	$('.typeCheck').click(function() {
 	      		$(this).siblings().children().trigger('click');
+	      		return false;
 	      	});
+
+	      	$(".clickableRow").click(function() {
+	      	      window.document.location = $(this).attr("href");
+	      	});
+
+	      	$('#{{ form.interest.value }}Btn').trigger('click');
 		});
 	</script>
 </footer>

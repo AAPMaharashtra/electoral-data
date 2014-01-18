@@ -30,39 +30,42 @@
 				</div>
 			</div>
 		</div>
-		<h4 class="spacer"> Is this citizen already an AAP supporter? </h4>
-		<div class="row">
-			<div class="col-sm-4">
-			    <div class="input-group">
-			      <span class="input-group-addon">
-			        <input type="checkbox" name="isMember">
-			      </span>
-			      <button class="form-control btn btn-default noBackground typeCheck">Member</button>
-			    </div>
-			</div>
-			<div class="col-sm-4">
-			    <div class="input-group">
-			      <span class="input-group-addon">
-			        <input type="checkbox" name="isDonor">
-			      </span>
-			      <button class="form-control btn btn-default noBackground typeCheck">Donor</button>
-			    </div>
-			</div>
-			<div class="col-sm-4">
-			    <div class="input-group">
-			      <span class="input-group-addon">
-			        <input type="checkbox" name="isVolunteer">
-			      </span>
-			      <button class="form-control btn btn-default noBackground typeCheck">Volunteer</button>
-			    </div>
-			</div>
-		</div>
-		<form action="/detail/{{Citizen.id}}" method="post" class="form-horizontal" role="form">
+		<form action="/view/detail/{{Citizen.id}}/" method="post" class="form-horizontal" role="form">
 			{% csrf_token %}
-			<input type="hidden" name="interest" value="neutral" id="interestInput">
-			<div class="form-group">
-			    <div class="col-sm-offset-4 col-sm-12">
-			      <input type="submit" class="btn btn-default">
+			<h4 class="spacer"> Is this citizen already an AAP supporter? </h4>
+			<div class="row">
+				<div class="col-sm-4">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        <!-- <input type="checkbox" name="isMember"> -->
+				        {{form.isMember}}
+				      </span>
+				      <button class="form-control btn btn-default noBackground typeCheck">Member</button>
+				    </div>
+				</div>
+				<div class="col-sm-4">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				        <!-- <input type="checkbox" name="isDonor"> -->
+				        {{form.isDonor}}
+				      </span>
+				      <button class="form-control btn btn-default noBackground typeCheck">Donor</button>
+				    </div>
+				</div>
+				<div class="col-sm-4">
+				    <div class="input-group">
+				      <span class="input-group-addon">
+				      	{{form.isVolunteer}}
+				      </span>
+				      <button class="form-control btn btn-default noBackground typeCheck">Volunteer</button>
+				    </div>
+				</div>
+			</div>
+			<input type="hidden" name="interest" value="{{ form.interest.value}}" id="interestInput">
+			<input type="hidden" name="processed" value="1">
+			<div class="form-group spacer">
+			    <div class="col-sm-offset-5 col-sm-12">
+			      <input type="submit" class="btn btn-primary btn-lg">
 			    </div>
 			</div>
 		</form>

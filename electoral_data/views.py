@@ -39,11 +39,12 @@ def citizens(request,society_id):
 # Show Citizen details
 def detail(request,citizen_id):
 	if request.method == 'POST':
-		form = CitizenInterestForm(request.Post)
+		inst = Citizen.objects.get(pk=citizen_id)
+		form = CitizenInterestForm(request.POST, instance=inst)
 		form.save()
 	else:
-		form = CitizenInterestForm()
-
-	citizen_details = Citizen.objects.filter(id=citizen_id)
-	context = {'citizen_details': citizen_details,'form': form}
-	return render(request, 'electoral_data/detail.html', context)
+		citizen_details = Citizen.objects.filter(id=citizen_id)
+		form = CitizenInterestForm(instance=citizen_details[0])
+		context = {'citizen_details': citizen_details,'form': form}
+		return render(request, 'electoral_data/detail.html', context)
+	

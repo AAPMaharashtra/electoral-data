@@ -33,18 +33,18 @@ def societies(request,polling_id):
 # Show Citizens in the Society
 def citizens(request,society_id):
 	citizens_list = Citizen.objects.filter(society=society_id)
-	context = {'citizens_list': citizens_list}
+	context = {'citizens_list': citizens_list,'society_id': society_id[:-3]}
 	return render(request, 'electoral_data/citizen.html', context)
 
 # Show Citizen details
 def detail(request,citizen_id):
+	citizen_details = Citizen.objects.filter(id=citizen_id)
 	if request.method == 'POST':
-		inst = Citizen.objects.get(pk=citizen_id)
-		form = CitizenInterestForm(request.POST, instance=inst)
+		form = CitizenInterestForm(request.POST, instance=citizen_details[0])
 		form.save()
 	else:
-		citizen_details = Citizen.objects.filter(id=citizen_id)
 		form = CitizenInterestForm(instance=citizen_details[0])
-		context = {'citizen_details': citizen_details,'form': form}
-		return render(request, 'electoral_data/detail.html', context)
+		
+	context = {'citizen_details': citizen_details,'form': form}
+	return render(request, 'electoral_data/detail.html', context)
 	

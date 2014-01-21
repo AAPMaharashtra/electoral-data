@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
 from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen,CitizenInterestForm
 
 
 # Create your views here.
+@login_required(login_url='/login')
 def index(request):
-    return HttpResponse("Hello, world. This is the AAP electoral data page")
+	if request.user.is_staff:
+		return HttpResponseRedirect("/admin/")
+	else:		
+		return HttpResponseRedirect("/view/societies/"+str(request.user.get_profile().polling_station.id))
 
 # Show LS seats
 def ls(request):

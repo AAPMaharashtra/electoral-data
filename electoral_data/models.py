@@ -1,5 +1,8 @@
 from django.db import models
 from django.forms import ModelForm
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 
 # Create your models here.
 class LokSabhaSeat(models.Model):
@@ -18,6 +21,7 @@ class PollingStation(models.Model):
 	name = models.CharField(max_length=100)
 	constituency = models.ForeignKey(AssemblyConstituency)
 	processed = models.BooleanField(default=False)
+
 	def __unicode__(self):
 		return self.name
 
@@ -91,9 +95,13 @@ class SocietyProcessedForm(ModelForm):
 		model = Society
 		fields = ['processed']
 
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
+	polling_station = models.ForeignKey(PollingStation,blank=True,null=True)
+	assembly = models.ForeignKey(AssemblyConstituency,blank=True,null=True)
 
-
-
+	def __unicode__(self):
+		return 'Test'
 
 
 

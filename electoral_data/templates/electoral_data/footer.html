@@ -1,8 +1,6 @@
 </div> <!-- close the container div -->
 <footer>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://code.jquery.com/jquery.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -13,12 +11,15 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 	      	
+	      	/* Whenever the interest button is clicked, remove the colors and add default */
 	      	$(".interestBtn").click(function() {
 	      		$(this).removeClass('btn-default');
 	            $(this).siblings().each(function(){
 	            	$(this).removeClass('btn-success').removeClass('btn-danger').removeClass('btn-info').addClass('btn-default');
 	            });
 	      	});
+
+	      	/* Individial colors for the interest button are addded here */
 	      	$('#forBtn').click(function() {
 	      		$(this).addClass('btn-success');
 	      		$('#interestInput').val('for');
@@ -32,16 +33,63 @@
 	      		$('#interestInput').val('against');
 	      	});
 
+	      	/* Whenever a button associated with a check box is clicked, trigger the checkbox as well */
 	      	$('.typeCheck').click(function() {
 	      		$(this).siblings().children().trigger('click');
 	      		return false;
 	      	});
 
+	      	/* Utility function used to make justified buttons clickable. 
+	      	 * Justified buttons are actually <a> tags
+	      	 */ 
 	      	$(".clickableRow").click(function() {
 	      	      window.document.location = $(this).attr("href");
 	      	});
 
+	      	/* This function is used to show the hidden fields for the member, donor and volunteer checkboxes */
+	      	$('.typeCheck').siblings().children().each(function(){
+	      		$(this).click(function(){
+	      			id = $(this).attr('id');
+	      			$('#'+id.substr(5).toLowerCase()+'Fields').slideToggle(100);
+	      		});
+	      		if($(this).attr('checked') == 'checked')
+	      		{
+	      			id = $(this).attr('id');
+	      			$('#'+id.substr(5).toLowerCase()+'Fields').slideToggle(50);
+	      		}
+	      	});
+
+	      	/* Show the phone number whenever the Deletion or Transposition checkboxes are ticked */
+	      	// $('.markCheck').click(function(){
+	      	// 	$('#phoneNoSection').slideToggle(100);
+	      	// });
+
+	      	/* In value is already there in the db, show the colors for del and trans buttons */
+	      	$('.markCheck').each(function(){
+	      		node = $(this);
+	      		if(node.siblings().children().first().attr('checked') == 'checked')
+	      		{
+	      			if(node.attr('id') == 'markDel')
+	      				node.toggleClass('btn-danger').toggleClass('btn-default')
+	      			else
+	      				node.toggleClass('btn-warning').toggleClass('btn-default')
+	      		}
+	      	});
+
+	      	/* If there is already a ticket check box, show the phone no */
+	      	// if($('#id_markForDeletion').attr('checked') == 'checked' || $('#id_markForTransposition').attr('checked') == 'checked')
+		      // 	{
+		      // 		$('#phoneNoSection').slideToggle(50);
+		      // 		console.log('test');
+		      // 	}
+
+	      	/* Toggle colors for the two Deletion and Transposition checkbox + buttons */
+	      	$('#markDel').click(function(){$(this).toggleClass('btn-danger').toggleClass('btn-default')})
+	      	$('#markTrans').click(function(){$(this).toggleClass('btn-warning').toggleClass('btn-default')})
+
+	      	/* If a interest is already there in the databse, show that color by default */
 	      	$('#{{ form.interest.value }}Btn').trigger('click');
+
 		});
 	</script>
 </footer>

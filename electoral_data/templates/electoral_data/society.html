@@ -2,15 +2,28 @@
 <div class="alert alert-info">
     <p>Choose the Society below</p>
 </div>
-<div class="row">
-	<div class="list-group">
-		{% if societies_list %}
-		    {% for Society in societies_list %}
-		    	<a href="/view/citizens/{{ Society.society_no }}/" class="list-group-item">{{ Society.address | title}} <span class="glyphicon glyphicon-chevron-right pull-right"> </a>
-		    {% endfor %}
-		{% else %}
-		    <p>No LS seats are available.</p>
-		{% endif %}
-	</div>
+{% if societies_list %}
+<div class="table">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<th>Society no</th>
+			<th>Society Address</th>
+		</thead>
+		<tbody>
+			{% for Society in societies_list %}
+				{% if Society.processed %}
+					<tr class="clickableRow success" href="/view/citizens/{{ Society.society_no }}/">
+				{% else %}
+					<tr class="clickableRow" href="/view/citizens/{{ Society.society_no }}/">
+				{% endif %}
+						<td>{{Society.society_no}}</td>
+						<td>{{Society.address | title}}</td>
+					</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
+{% else %}
+    <p>No LS seats are available.</p>
+{% endif %}
 {% include "electoral_data/footer.html" %}

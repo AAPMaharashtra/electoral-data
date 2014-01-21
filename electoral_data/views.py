@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen,CitizenInterestForm
+from django.shortcuts import render, redirect
+from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen,CitizenInterestForm, SocietyProcessedForm
 
 
 # Create your views here.
@@ -33,8 +33,17 @@ def societies(request,polling_id):
 # Show Citizens in the Society
 def citizens(request,society_id):
 	citizens_list = Citizen.objects.filter(society=society_id)
-	context = {'citizens_list': citizens_list,'society_id': society_id[:-3]}
-	return render(request, 'electoral_data/citizen.html', context)
+	if request.method == 'POST':
+		society = Society.objects.get(society_no=society_id)
+		form = SocietyProcessedForm(request.POST, instance=society)
+		form.save()
+		polling_id = society.polling_station.id
+		return redirect('/view/societies/'+str(polling_id))
+	else:
+		form = SocietyProcessedForm(instance=citizens_list[0])
+		context = {'citizens_list': citizens_list,'society_id': society_id,'form': form}
+		return render(request, 'electoral_data/citizen.html', context)
+
 
 # Show Citizen details
 def detail(request,citizen_id):

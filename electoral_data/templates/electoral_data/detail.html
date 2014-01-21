@@ -5,10 +5,10 @@
 		<div class="table-resposive">
 			<table class="table table-bordered">
 				<thead>
-					<th>House no</th>
-					<th>Voter ID</th>
-					<th>Age</th>
-					<th>Gender</th>
+					<th class="active">House no</th>
+					<th class="active">Voter ID</th>
+					<th class="active">Age</th>
+					<th class="active">Gender</th>
 				</thead>
 				<tbody>
 					<tr>
@@ -20,7 +20,8 @@
 				</tbody>
 			</table>
 		</div>
-		<h4 class="spacer"> How does this citizen feel about AAP ? </h4>
+		<hr>
+		<h4> How does this citizen feel about AAP ? </h4>
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="btn-group btn-group-justified btn-group-lg">
@@ -30,9 +31,10 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 		<form action="/view/detail/{{Citizen.id}}/" method="post" class="form-horizontal" role="form">
 			{% csrf_token %}
-			<h4 class="spacer"> Is this citizen already an AAP supporter? </h4>
+			<h4> Is this citizen already an AAP supporter? </h4>
 			<div class="row">
 				<div class="col-sm-4">
 				    <div class="input-group">
@@ -61,9 +63,69 @@
 				    </div>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div id="memberFields">
+						<div class="smallspacer">
+						    <label for="memberNo">Member no</label>
+						    <input type="text" class="form-control" id="memberNo" placeholder="Enter Membership number" name="member_no" value="{{form.member_no.value}}">
+						</div>
+					    <div class="smallspacer">
+					    	<label for="memberEmail">Email address</label>
+					        <input type="email" class="form-control" id="memberEmail" placeholder="Enter email" name="email_address" value="{{form.email_address.value}}">
+					    </div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+				    <div id="donorFields">
+						<div class="smallspacer">
+						    <label for="voucherNo">Voucher no</label>
+						    <input type="text" class="form-control" id="voucherNo" placeholder="Enter Voucher number" name="voucher_no" value="{{form.voucher_no.value}}">
+						</div>
+					    <div class="smallspacer">
+					    	<label for="donorAmount">Amount</label>
+					        <input type="email" class="form-control" id="donorAmount" placeholder="Enter amount of money dontaed" name="donation_amount" value="{{form.donation_amount.value}}">
+					    </div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+				    <div id="volunteerFields">
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-sm-6">
+					<h4> Does the citizen say he's not in the electoral roll? </h4>
+					<div class="input-group">
+					      <span class="input-group-addon">
+					        {{form.markForDeletion}}
+					      </span>
+					      <button class="form-control btn btn-default noBackground typeCheck markCheck" id="markDel">Mark this user for deletion
+					      </button>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<h4> Does the citizen say he's moved to a different electoral roll? </h4>
+					<div class="input-group">
+					      <span class="input-group-addon">
+					        {{form.markForTransposition}}
+					      </span>
+					      <button class="form-control btn btn-default noBackground typeCheck markCheck" id="markTrans">Mark this user for transposition
+					      </button>
+					</div>
+				</div>
+			</div>
+			<div class="row smallspacer">
+				<div class="col-sm-8 offset-sm-4" id="phoneNoSection">
+					<label for="phoneNo">Phone no</label>
+					<input type="text" class="form-control" id="phoneNo" placeholder="Enter Phone number" name="phone_no" value="{{form.phone_no.value}}">
+				</div>
+			</div>
 			<input type="hidden" name="interest" value="{{ form.interest.value}}" id="interestInput">
 			<input type="hidden" name="processed" value="1">
-			<div class="form-group spacer">
+			<hr>
+			<div class="form-group">
 			    <div class="col-sm-offset-5 col-sm-12">
 			      <input type="submit" class="btn btn-primary btn-lg">
 			    </div>

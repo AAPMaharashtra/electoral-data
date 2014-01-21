@@ -3,7 +3,7 @@
     <p>Here are the citizen details</p>
 </div>
 {% if citizens_list %}
-<div class="table-responsive">
+<div class="table">
 	<table class = "table table-bordered table-hover">
 		<thead>
 			<tr>
@@ -20,7 +20,7 @@
 					<tr class="clickableRow" href="/view/detail/{{ Citizen.id }}">
 				{% endif %}
 						<td>
-							{{ Citizen.id }}
+							{{ society_id | slice:":-3" }}{{Citizen.citizen_ward_no |stringformat:"03d"}}
 						</td>
 						<td>
 							{{ Citizen.house_no }}
@@ -33,6 +33,15 @@
 		</tbody>
 	</table>
 </div>
+<form action="/view/citizens/{{society_id}}/" method="post" class="form-horizontal" role="form">
+	{% csrf_token %}
+	<input type="hidden" name="processed" value="1">
+	<div class="form-group spacer">
+	    <div class="col-sm-offset-5 col-sm-12">
+	      <input type="submit" class="btn btn-success btn-lg" value="Mark as done">
+	    </div>
+	</div>
+</form>
 {% else %}
    	<p>No LS seats are available.</p>
 {% endif %}

@@ -41,6 +41,7 @@ class Citizen(models.Model):
 	parent_name = models.CharField(max_length=100)
 	house_no = models.CharField(max_length=100,default='')
 	age = models.IntegerField(default=0)
+	citizen_ward_no = models.IntegerField(default=0)
 	SEX_CHOICES = (('male','Male'),('female','Female'))
 	sex = models.CharField(max_length=10,choices=SEX_CHOICES,default='male')
 
@@ -57,17 +58,38 @@ class Citizen(models.Model):
 	)
 	photo_available = models.CharField(max_length=2,choices=PHOTO_CHOICES,default='n')
 	processed = models.BooleanField(default=False)
+
 	isMember = models.BooleanField('Member',default=False)
+	member_no = models.CharField(max_length=20,default='',blank=True)
+	email_address = models.CharField(max_length=200,default='',blank=True)
+
 	isVolunteer = models.BooleanField('Volunteer',default=False)
+
 	isDonor = models.BooleanField('Donor',default=False)
+	voucher_no = models.CharField(max_length=100,default='',blank=True)
+	donation_amount = models.IntegerField(default=0)
+
+	markForDeletion = models.BooleanField('Mark for Deletion',default=False)
+	markForTransposition = models.BooleanField('Mark for Transposition',default=False)
+
+	phone_no = models.CharField(max_length=20,default='',blank=True)
 
 	def __unicode__(self):
 		return self.name + ', ' + self.address
 
+	def getCitizenIdentifier(self):
+		society_no = self.society.society_no[:-3]
+		return society_no
+
 class CitizenInterestForm(ModelForm):
 	class Meta:
 		model = Citizen
-		fields = ['interest', 'processed','isMember','isVolunteer','isDonor']
+		fields = ['interest', 'processed','isMember','isVolunteer','isDonor','voucher_no','donation_amount','markForTransposition','markForDeletion','phone_no','member_no','email_address']
+
+class SocietyProcessedForm(ModelForm):
+	class Meta:
+		model = Society
+		fields = ['processed']
 
 
 

@@ -32,7 +32,8 @@ def polling(request,assembly_id):
 # Show societies for the Polling Station
 def societies(request,polling_id):
 	societies_list = Society.objects.filter(polling_station=polling_id)
-	context = {'societies_list': societies_list}
+	polling_station = PollingStation.objects.get(id=polling_id)
+	context = {'societies_list': societies_list,'polling_station': polling_station}
 	return render(request, 'electoral_data/society.html', context)
 
 # Show Citizens in the Society

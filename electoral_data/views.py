@@ -12,24 +12,37 @@ def index(request):
 		return redirect("/view/societies/"+str(request.user.get_profile().polling_station.id))
 
 # Show LS seats
+@login_required(login_url='/login')
 def ls(request):
-	ls_seats_list = LokSabhaSeat.objects.all()
-	context = {'ls_seats_list': ls_seats_list}
-	return render(request, 'electoral_data/ls.html', context)
+	if request.user.is_staff:
+		ls_seats_list = LokSabhaSeat.objects.all()
+		context = {'ls_seats_list': ls_seats_list}
+		return render(request, 'electoral_data/ls.html', context)
+	else:
+		return redirect("/view/societies/"+str(request.user.get_profile().polling_station.id))
 	
 # Show Assembly seats for LS
+@login_required(login_url='/login')
 def assembly(request,ls_id):
-	assembly_list = AssemblyConstituency.objects.filter(lok_sabha_seat=ls_id)
-	context = {'assembly_list': assembly_list}
-	return render(request, 'electoral_data/assembly.html', context)
+	if request.user.is_staff:
+		assembly_list = AssemblyConstituency.objects.filter(lok_sabha_seat=ls_id)
+		context = {'assembly_list': assembly_list}
+		return render(request, 'electoral_data/assembly.html', context)
+	else:
+		return redirect("/view/societies/"+str(request.user.get_profile().polling_station.id))
 
 # Show Polling booths for the Assembly seat
+@login_required(login_url='/login')
 def polling(request,assembly_id):
-	polling_list = PollingStation.objects.filter(constituency=assembly_id)
-	context = {'polling_list': polling_list}
-	return render(request, 'electoral_data/polling.html', context)
+	if request.user.is_staff:
+		polling_list = PollingStation.objects.filter(constituency=assembly_id)
+		context = {'polling_list': polling_list}
+		return render(request, 'electoral_data/polling.html', context)
+	else:
+		return redirect("/view/societies/"+str(request.user.get_profile().polling_station.id))
 
 # Show societies for the Polling Station
+@login_required(login_url='/login')
 def societies(request,polling_id):
 	societies_list = Society.objects.filter(polling_station=polling_id)
 	polling_station = PollingStation.objects.get(id=polling_id)
@@ -37,6 +50,7 @@ def societies(request,polling_id):
 	return render(request, 'electoral_data/society.html', context)
 
 # Show Citizens in the Society
+@login_required(login_url='/login')
 def citizens(request,society_id):
 	citizens_list = Citizen.objects.filter(society=society_id)
 	if request.method == 'POST':
@@ -52,6 +66,7 @@ def citizens(request,society_id):
 
 
 # Show Citizen details
+@login_required(login_url='/login')
 def detail(request,citizen_id):
 	citizen_details = Citizen.objects.filter(id=citizen_id)
 	if request.method == 'POST':

@@ -6,7 +6,7 @@
 	<div class="list-group">
 		{% if assembly_list %}
 		    {% for AssemblyConstituency in assembly_list %}
-		        <a href="/view/polling/{{ AssemblyConstituency.constituency_no }}/" class="list-group-item">{{ AssemblyConstituency.name | title}} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+		        <a href="/polling/{{ AssemblyConstituency.constituency_no }}/" class="list-group-item">{{ AssemblyConstituency.name | title}} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 		    {% endfor %}
 		{% else %}
 		    	<p>No LS seats are available.</p>

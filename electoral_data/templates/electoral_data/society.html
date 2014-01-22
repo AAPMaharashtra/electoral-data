@@ -13,9 +13,9 @@
 		<tbody>
 			{% for Society in societies_list %}
 				{% if Society.processed %}
-					<tr class="clickableRow success" href="/view/citizens/{{ Society.society_no }}/">
+					<tr class="clickableRow success" href="/citizens/{{ Society.society_no }}/">
 				{% else %}
-					<tr class="clickableRow" href="/view/citizens/{{ Society.society_no }}/">
+					<tr class="clickableRow" href="/citizens/{{ Society.society_no }}/">
 				{% endif %}
 						<td>{{Society.society_no}}</td>
 						<td>{{Society.address | title}}</td>

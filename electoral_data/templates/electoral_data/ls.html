@@ -6,7 +6,7 @@
 	<div class="list-group">
 		{% if ls_seats_list %}
 	    	{% for LokSabhaSeat in ls_seats_list %}
-	        	<a href="/assembly/{{ LokSabhaSeat.id }}/" class="list-group-item">{{ LokSabhaSeat.name }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+	        	<a href="{% url 'electoral_data.views.assembly' LokSabhaSeat.id %}" class="list-group-item">{{ LokSabhaSeat.name }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 	    	{% endfor %}
 		{% else %}
 	    	<p>No LS seats are available.</p>

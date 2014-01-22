@@ -57,9 +57,11 @@ def detail(request,citizen_id):
 	if request.method == 'POST':
 		form = CitizenInterestForm(request.POST, instance=citizen_details[0])
 		form.save()
+		society_id = citizen_details[0].society.society_no
+		return redirect('/view/citizens/'+society_id)
 	else:
 		form = CitizenInterestForm(instance=citizen_details[0])
+		context = {'citizen_details': citizen_details,'form': form}
+		return render(request, 'electoral_data/detail.html', context)
 		
-	context = {'citizen_details': citizen_details,'form': form}
-	return render(request, 'electoral_data/detail.html', context)
 	

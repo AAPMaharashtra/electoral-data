@@ -15,9 +15,9 @@
 		<tbody>
 			{% for Citizen in citizens_list %}
 				{% if Citizen.processed %}
-					<tr class="success clickableRow" href="/view/detail/{{ Citizen.id }}">
+					<tr class="success clickableRow" href="/detail/{{ Citizen.id }}">
 				{% else %}
-					<tr class="clickableRow" href="/view/detail/{{ Citizen.id }}">
+					<tr class="clickableRow" href="/detail/{{ Citizen.id }}">
 				{% endif %}
 						<td>
 							{{ society_id | slice:":-3" }}{{Citizen.citizen_ward_no |stringformat:"03d"}}
@@ -33,7 +33,7 @@
 		</tbody>
 	</table>
 </div>
-<form action="/view/citizens/{{society_id}}/" method="post" class="form-horizontal" role="form">
+<form action="/citizens/{{society_id}}/" method="post" class="form-horizontal" role="form">
 	{% csrf_token %}
 	<input type="hidden" name="processed" value="1">
 	<div class="form-group spacer">

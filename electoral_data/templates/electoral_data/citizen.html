@@ -20,7 +20,7 @@
 					<tr class="clickableRow" href="{% url 'electoral_data.views.detail' Citizen.id %}">
 				{% endif %}
 						<td>
-							{{ society_id | slice:":-3" }}{{Citizen.citizen_ward_no |stringformat:"03d"}}
+							{{ society_id | slice:":-3" }}{{Citizen.citizen_ward_no |stringformat:"04d"}}
 						</td>
 						<td>
 							{{ Citizen.house_no }}

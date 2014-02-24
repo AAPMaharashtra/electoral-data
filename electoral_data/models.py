@@ -65,7 +65,7 @@ class Citizen(models.Model):
 
 	isMember = models.BooleanField('Member',default=False)
 	member_no = models.CharField(max_length=20,default='',blank=True)
-	email_address = models.CharField(max_length=200,default='',blank=True)
+	email_address = models.EmailField(blank=True)
 
 	isVolunteer = models.BooleanField('Volunteer',default=False)
 

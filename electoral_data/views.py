@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen,CitizenInterestForm, SocietyProcessedForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 @login_required()
@@ -67,6 +68,7 @@ def citizens(request,society_id):
 
 # Show Citizen details
 @login_required()
+@csrf_protect()
 def detail(request,citizen_id):
 	citizen_details = Citizen.objects.filter(id=citizen_id)
 	if request.method == 'POST':

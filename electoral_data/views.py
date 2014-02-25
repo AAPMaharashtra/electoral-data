@@ -45,7 +45,7 @@ def polling(request,assembly_id):
 # Show Citizens in the Society
 @login_required()
 def citizens(request,polling_station_id):
-	citizens_list = Citizen.objects.filter(polling_station=polling_station_id)
+	citizens_list = Citizen.objects.filter(polling_station=polling_station_id).order_by('part_no','serial_no')
 	context = {'citizens_list': citizens_list,'polling_station':polling_station_id}
 	return render(request, 'electoral_data/citizen.html', context)
 

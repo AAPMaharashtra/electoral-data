@@ -58,7 +58,7 @@ def detail(request,citizen_id):
 	if request.method == 'POST':
 		form = CitizenInterestForm(request.POST, instance=citizen_details[0])
 		form.save()
-		polling_station_id = citizen_details[0].polling_station.polling_station_id
+		polling_station_id = citizen_details[0].polling_station.id
 		return redirect(reverse('electoral_data.views.citizens',args=[polling_station_id]))
 	else:
 		form = CitizenInterestForm(instance=citizen_details[0])

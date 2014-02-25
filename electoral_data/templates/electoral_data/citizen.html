@@ -7,7 +7,8 @@
 	<table class = "table table-bordered table-hover">
 		<thead>
 			<tr>
-				<th>#</th>
+				<th>Part Np</th>
+				<th>Serial Np</th>
 				<th>House No.</th>
 				<th>Name</th>
 			</tr>
@@ -20,7 +21,10 @@
 					<tr class="clickableRow" href="{% url 'electoral_data.views.detail' Citizen.id %}">
 				{% endif %}
 						<td>
-							{{ society_id | slice:":-3" }}{{Citizen.citizen_ward_no |stringformat:"04d"}}
+							{{ Citizen.part_no }}
+						</td>
+						<td>
+							{{ Citizen.serial_no }}
 						</td>
 						<td>
 							{{ Citizen.house_no }}
@@ -33,7 +37,7 @@
 		</tbody>
 	</table>
 </div>
-<form action="/citizens/{{society_id}}/" method="post" class="form-horizontal" role="form">
+<form action="/citizens/{{polling_station}}/" method="post" class="form-horizontal" role="form">
 	{% csrf_token %}
 	<input type="hidden" name="processed" value="1">
 	<div class="form-group spacer">

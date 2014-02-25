@@ -11,10 +11,8 @@ urlpatterns = patterns('',
     url(r'^assembly/(?P<ls_id>\d+)/$', views.assembly, name='assembly'),
     # ex: /view/polling/31
     url(r'^polling/(?P<assembly_id>\w+)/$', views.polling, name='polling'),
-    # ex: /view/socities/42
-    url(r'^societies/(?P<polling_id>\d+)/$', views.societies, name='societies'),
     # ex: /view/citizens/192
-    url(r'^citizens/(?P<society_id>\w+)/$', views.citizens, name='citizens'),
+    url(r'^citizens/(?P<polling_station_id>\w+)/$', views.citizens, name='citizens'),
     # ex: /view/detail/192
     url(r'^detail/(?P<citizen_id>\d+)/$', views.detail, name='detail'),
 )

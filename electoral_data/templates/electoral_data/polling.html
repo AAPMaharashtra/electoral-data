@@ -6,7 +6,7 @@
 	<div class="list-group">
 		{% if polling_list %}
 		    {% for PollingStation in polling_list %}
-		    	<a href="{% url 'electoral_data.views.societies' PollingStation.id %}" class="list-group-item">{{ PollingStation.name | title }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+		    	<a href="{% url 'electoral_data.views.citizens' PollingStation.id %}" class="list-group-item">{{ PollingStation.name | title }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
 		    {% endfor %}
 		{% else %}
 		    <p>No LS seats are available.</p>

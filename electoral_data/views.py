@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Society,Citizen,CitizenInterestForm, SocietyProcessedForm
+from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStation,Citizen,CitizenInterestForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
@@ -42,40 +42,24 @@ def polling(request,assembly_id):
 	else:
 		return redirect(reverse('electoral_data.views.societies',args=[str(request.user.get_profile().polling_station.id)]))
 
-# Show societies for the Polling Station
-@login_required()
-def societies(request,polling_id):
-	societies_list = Society.objects.filter(polling_station=polling_id)
-	polling_station = PollingStation.objects.get(id=polling_id)
-	context = {'societies_list': societies_list,'polling_station': polling_station}
-	return render(request, 'electoral_data/society.html', context)
-
 # Show Citizens in the Society
 @login_required()
-def citizens(request,society_id):
-	citizens_list = Citizen.objects.filter(society=society_id)
-	if request.method == 'POST':
-		society = Society.objects.get(society_no=society_id)
-		form = SocietyProcessedForm(request.POST, instance=society)
-		form.save()
-		polling_id = society.polling_station.id
-		return redirect(reverse('electoral_data.views.societies',args=[str(polling_id)]))
-	else:
-		form = SocietyProcessedForm(instance=citizens_list[0])
-		context = {'citizens_list': citizens_list,'society_id': society_id,'form': form}
-		return render(request, 'electoral_data/citizen.html', context)
+def citizens(request,polling_station_id):
+	citizens_list = Citizen.objects.filter(polling_station=polling_station_id)
+	context = {'citizens_list': citizens_list,'polling_station':polling_station_id}
+	return render(request, 'electoral_data/citizen.html', context)
 
 
 # Show Citizen details
 @login_required()
-@csrf_protect()
+@csrf_protect
 def detail(request,citizen_id):
 	citizen_details = Citizen.objects.filter(id=citizen_id)
 	if request.method == 'POST':
 		form = CitizenInterestForm(request.POST, instance=citizen_details[0])
 		form.save()
-		society_id = citizen_details[0].society.society_no
-		return redirect(reverse('electoral_data.views.citizens',args=[society_id]))
+		polling_station_id = citizen_details[0].polling_station.polling_station_id
+		return redirect(reverse('electoral_data.views.citizens',args=[polling_station_id]))
 	else:
 		form = CitizenInterestForm(instance=citizen_details[0])
 		context = {'citizen_details': citizen_details,'form': form}

@@ -10,7 +10,7 @@ def index(request):
 	if request.user.is_staff:
 		return redirect(reverse('admin:index'))
 	else:		
-		return redirect(reverse('electoral_data.views.societies',args=[str(request.user.get_profile().polling_station.id)]))
+		return redirect(reverse('electoral_data.views.polling',args=[str(request.user.get_profile().polling_station.id)]))
 
 # Show LS seats
 @login_required()
@@ -20,7 +20,7 @@ def ls(request):
 		context = {'ls_seats_list': ls_seats_list}
 		return render(request, 'electoral_data/ls.html', context)
 	else:
-		return redirect(reverse('electoral_data.views.societies',args=[str(request.user.get_profile().polling_station.id)]))
+		return redirect(reverse('electoral_data.views.polling',args=[str(request.user.get_profile().polling_station.id)]))
 	
 # Show Assembly seats for LS
 @login_required()
@@ -30,7 +30,7 @@ def assembly(request,ls_id):
 		context = {'assembly_list': assembly_list}
 		return render(request, 'electoral_data/assembly.html', context)
 	else:
-		return redirect(reverse('electoral_data.views.societies',args=[str(request.user.get_profile().polling_station.id)]))
+		return redirect(reverse('electoral_data.views.polling',args=[str(request.user.get_profile().polling_station.id)]))
 
 # Show Polling booths for the Assembly seat
 @login_required()
@@ -40,7 +40,7 @@ def polling(request,assembly_id):
 		context = {'polling_list': polling_list}
 		return render(request, 'electoral_data/polling.html', context)
 	else:
-		return redirect(reverse('electoral_data.views.societies',args=[str(request.user.get_profile().polling_station.id)]))
+		return redirect(reverse('electoral_data.views.polling',args=[str(request.user.get_profile().polling_station.id)]))
 
 # Show Citizens in the Society
 @login_required()

@@ -5,14 +5,16 @@
 		<div class="table-resposive">
 			<table class="table table-bordered">
 				<thead>
-					<th class="active">House no</th>
+					<th class="active">Serial no</th>
+					<th class="active">Part no</th>
 					<th class="active">Voter ID</th>
 					<th class="active">Age</th>
 					<th class="active">Gender</th>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{Citizen.house_no}}</td>
+						<td>{{Citizen.serial_no}}</td>
+						<td>{{Citizen.part_no}}</td>
 						<td>{{Citizen.voter_id}}</td>
 						<td>{{Citizen.age}}</td>
 						<td>{{Citizen.sex | title}}</td>
@@ -25,9 +27,14 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="btn-group btn-group-justified btn-group-lg">
-			        <a class="btn btn-default noBackground interestBtn" role="button" id="forBtn">For</a>
-			        <a class="btn btn-default noBackground interestBtn" role="button" id="neutralBtn">Neutral</a>
-			        <a class="btn btn-default noBackground interestBtn" role="button" id="againstBtn">Against</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="aapBtn">AAP</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="congressBtn">Congress</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="ncpBtn">NCP</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="bjpBtn">BJP</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="shsBtn">SHS</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="mnsBtn">MNS</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="rpiBtn">RPI</a>
+			        <a class="btn btn-default noBackground interestBtn" role="button" id="otherBtn">Other</a>
 				</div>
 			</div>
 		</div>

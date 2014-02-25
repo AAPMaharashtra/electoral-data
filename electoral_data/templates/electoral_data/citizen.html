@@ -9,8 +9,8 @@
 			<tr>
 				<th>Part Np</th>
 				<th>Serial Np</th>
-				<th>House No.</th>
-				<th>Name</th>
+				<th>First Name</th>
+				<th>Last Name</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -27,10 +27,10 @@
 							{{ Citizen.serial_no }}
 						</td>
 						<td>
-							{{ Citizen.house_no }}
+							{{ Citizen.first_name | title }}
 						</td>
 						<td>
-							{{ Citizen.name | title }}
+							{{ Citizen.last_name | title }}
 						</td>
 					</tr>
 			{% endfor %}

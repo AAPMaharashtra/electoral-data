@@ -37,7 +37,7 @@
 		</tbody>
 	</table>
 </div>
-<form action="/citizens/{{polling_station}}/" method="post" class="form-horizontal" role="form">
+<form action="/citizens/{{part_no}}/" method="post" class="form-horizontal" role="form">
 	{% csrf_token %}
 	<input type="hidden" name="processed" value="1">
 	<div class="form-group spacer">

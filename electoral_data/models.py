@@ -72,7 +72,7 @@ class Citizen(models.Model):
 	phone_no = models.CharField(max_length=20,default='',blank=True)
 
 	def __unicode__(self):
-		return self.name + ', ' + self.address
+		return self.first_name + ', ' + self.last_name
 
 class CitizenInterestForm(ModelForm):
 	class Meta:

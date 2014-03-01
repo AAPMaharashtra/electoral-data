@@ -3,6 +3,7 @@ from electoral_data.models import LokSabhaSeat,AssemblyConstituency,PollingStati
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_protect
+from django.db.models import Count
 
 # Create your views here.
 @login_required()
@@ -42,11 +43,21 @@ def polling(request,assembly_id):
 	else:
 		return redirect(reverse('electoral_data.views.polling',args=[str(request.user.get_profile().polling_station.id)]))
 
+# Show Parts in the Polling Booth
+@login_required()
+def part(request,polling_station_id):
+	if request.user.is_staff or request.user.get_profile().polling_station.id == polling_station_id:
+		part_no_list = Citizen.objects.filter(polling_station=polling_station_id).values('part_no').annotate(num_part=Count('part_no'))
+		context = {'part_no_list':part_no_list}
+		return render(request,'electoral_data/part.html',context)
+	else:
+		return redirect(reverse('electoral_data.views.polling',args=[str(request.user.get_profile().polling_station.id)]))
+
 # Show Citizens in the Society
 @login_required()
-def citizens(request,polling_station_id):
-	citizens_list = Citizen.objects.filter(polling_station=polling_station_id).order_by('part_no','serial_no')
-	context = {'citizens_list': citizens_list,'polling_station':polling_station_id}
+def citizens(request,part_no):
+	citizens_list = Citizen.objects.filter(part_no=part_no).order_by('part_no','serial_no')
+	context = {'citizens_list': citizens_list,'part_no':part_no}
 	return render(request, 'electoral_data/citizen.html', context)
 
 

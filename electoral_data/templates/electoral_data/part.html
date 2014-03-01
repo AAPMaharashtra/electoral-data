@@ -1,0 +1,33 @@
+{% include "electoral_data/header.html" %}
+<div class="alert alert-info">
+    <p>Choose the Part no below below</p>
+</div>
+{% if part_no_list %}
+<div class="table">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<th>Part No</th>
+			<th>No. of citizens</th>
+		</thead>
+		<tbody>
+			{% for Part in part_no_list %}
+					<tr>
+						<td>
+				<a href="{% url 'electoral_data.views.citizens' Part.part_no %}" class="list-group-item">
+							{{Part.part_no}}
+				</a>
+						</td>
+						<td>
+				<a href="{% url 'electoral_data.views.citizens' Part.part_no %}" class="list-group-item">
+							{{Part.num_part}}
+						</td>
+				</a>
+					</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% else %}
+    <p>No LS seats are available.</p>
+{% endif %}
+{% include "electoral_data/footer.html" %}

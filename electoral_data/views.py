@@ -47,7 +47,7 @@ def polling(request,assembly_id):
 @login_required()
 def part(request,polling_station_id):
 	if request.user.is_staff or request.user.get_profile().polling_station.id == polling_station_id:
-		part_no_list = Citizen.objects.filter(polling_station=polling_station_id).values('part_no').annotate(num_part=Count('part_no'))
+		part_no_list = Citizen.objects.filter(polling_station=polling_station_id).values('part_no','polling_station').annotate(num_part=Count('part_no'))
 		context = {'part_no_list':part_no_list}
 		return render(request,'electoral_data/part.html',context)
 	else:
@@ -55,8 +55,8 @@ def part(request,polling_station_id):
 
 # Show Citizens in the Society
 @login_required()
-def citizens(request,part_no):
-	citizens_list = Citizen.objects.filter(part_no=part_no).order_by('part_no','serial_no')
+def citizens(request,part_no,polling_station_id):
+	citizens_list = Citizen.objects.filter(part_no=part_no,polling_station=polling_station_id).order_by('part_no','serial_no')
 	context = {'citizens_list': citizens_list,'part_no':part_no}
 	return render(request, 'electoral_data/citizen.html', context)
 
@@ -69,8 +69,9 @@ def detail(request,citizen_id):
 	if request.method == 'POST':
 		form = CitizenInterestForm(request.POST, instance=citizen_details[0])
 		form.save()
+		part_no = citizen_details[0].part_no
 		polling_station_id = citizen_details[0].polling_station.id
-		return redirect(reverse('electoral_data.views.citizens',args=[polling_station_id]))
+		return redirect(reverse('electoral_data.views.citizens',args=[part_no,polling_station_id]))
 	else:
 		form = CitizenInterestForm(instance=citizen_details[0])
 		context = {'citizen_details': citizen_details,'form': form}
